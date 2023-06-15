@@ -15,7 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class GoogleGenTest {
 
 	static WebDriver driver = new ChromeDriver();
-	static WebElement query = null;
+	static WebElement query;
 
 	@BeforeClass
 	public static void setData() {
@@ -31,7 +31,20 @@ public class GoogleGenTest {
 	public void clearStep() {
 		System.out.println("run before EACH of 3 tests BUT after @BeforeClass annotation");
 	}
+	
+	@After
+	public void cleanStep() {
+		System.out.println("run after EACH of 3 tests BUT before @AfterClass annotation");
+	} 
+	
+	@AfterClass
+	public static void tearData() {
+		driver.quit(); 
+		System.out.println("run after 3 tests and @After annotation");
+	}
 
+	// Tests start from here now on
+	
 	@Test
 	public void test1() {
 		System.out.println("1 run");
@@ -52,17 +65,6 @@ public class GoogleGenTest {
 		boolean y = true;
 		assertTrue(y != false);
 		System.out.println("TRUE");
-	}
-
-	@After
-	public void cleanStep() {
-		System.out.println("run after EACH of 3 tests BUT before @After annotation");
-	}
-
-	@AfterClass
-	public static void tearData() {
-		driver.close();
-		System.out.println("run after 3 tests and @After annotation");
 	}
 
 }
